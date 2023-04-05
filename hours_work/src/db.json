@@ -1,16 +1,19 @@
 {
-    
-    "april": [
-        {
-            "total": 8,
-            "course": 3,
-            "date": "2023.04.03"
-        },
-        {
-            "total": 8,
-            "course": 2,
-            "date": "2023.04.04"
-        }
-    ]
-
+  "april": [
+    {
+      "total": 8,
+      "course": 3,
+      "date": "2023.04.03"
+    },
+    {
+      "total": 8,
+      "course": 2,
+      "date": "2023.04.04"
+    },
+    {
+      "total": 10,
+      "course": 2,
+      "date": "2023.04.05"
+    }
+  ]
 }
