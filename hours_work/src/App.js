@@ -1,16 +1,28 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
 import styles from './App.module.css';
-import data from './data.json' assert { type: 'JSON' };
 
 function App() {
   const [selectedMonth, setSelectedMonth] = useState(null);
+  const [data, setData] = useState({
+    april: [
+    {
+      total: 8,
+      course: 3,
+      date: "2023.04.03"
+    }
+  ]
+  });
 
-  console.log(data)
+  useEffect(() => {
+    fetch('https://my-json-server.typicode.com/Jirafek/DB_hours/db')
+    .then((res) => res.json())
+    .then((json) => setData(json))
+    .catch(err => console.log(err));
+  }, []);
 
   const months = Object.keys(data);
 
-  const handleClick = async (month) => {
+  const handleClick = (month) => {
     setSelectedMonth(month);
   };
 
