@@ -1,35 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
 import styles from './App.module.css';
-// import { data } from './db';
+import data from './data.json' assert { type: 'JSON' };
 
 function App() {
   const [selectedMonth, setSelectedMonth] = useState(null);
-  let data;
 
-  const getJSON = function(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-      var status = xhr.status;
-      if (status === 200) {
-        callback(null, xhr.response);
-      } else {
-        callback(status, xhr.response);
-      }
-    };
-    xhr.send();
-};
-
- getJSON('./db.json', function(err, dat) {
-  if (err !== null) {
-    alert('Something went wrong: ' + err);
-    return;
-  } else {
-    data = dat
-  }
- })
+  console.log(data)
 
   const months = Object.keys(data);
 
