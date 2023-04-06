@@ -3,6 +3,7 @@ import styles from './App.module.css';
 
 function App() {
   const [selectedMonth, setSelectedMonth] = useState(null);
+  const NEED_WORK_FOR = 8
   const [data, setData] = useState({
     april: [
     {
@@ -14,7 +15,7 @@ function App() {
   });
 
   useEffect(() => {
-    fetch('https://my-json-server.typicode.com/Jirafek/DB_hours/db')
+    fetch('https://raw.githubusercontent.com/Jirafek/DB_hours/main/db.json')
     .then((res) => res.json())
     .then((json) => setData(json))
     .catch(err => console.log(err));
@@ -50,7 +51,7 @@ function App() {
 
     return (
       <div className={styles.tableTotaling}>
-      <h2>Total month hours: {getTotalForMonth(selectedMonth)}</h2>
+      <h2>Total month hours for {selectedMonth}: {getTotalForMonth(selectedMonth)} / {selectedData.length * NEED_WORK_FOR}</h2>
       <table className={styles.table}>
         <thead>
           <tr>
