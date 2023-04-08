@@ -3,6 +3,7 @@ import styles from './App.module.css';
 
 function App() {
   const [selectedMonth, setSelectedMonth] = useState(null);
+  const NEED_WORK_FOR = 8
   const DAY_OFF = [6, 0]
   const [data, setData] = useState({
     april: [
@@ -48,19 +49,17 @@ function App() {
     if (!selectedData) {
       return null;
     }
-    let NEED_WORK_FOR = 0;
+    let WORK_DAYS = 0;
     selectedData.forEach(el => {
-      console.log(new Date(el.date).getDay())
       if (!DAY_OFF.includes(new Date(el.date).getDay())) {
-        NEED_WORK_FOR += 1
+        WORK_DAYS += 1
       }
     });
-    console.log(NEED_WORK_FOR)
 
 
     return (
       <div className={styles.tableTotaling}>
-      <h2>Total month hours for {selectedMonth}: {getTotalForMonth(selectedMonth)} / {selectedData.length * NEED_WORK_FOR}</h2>
+      <h2>Total month hours for {selectedMonth}: {getTotalForMonth(selectedMonth)} / {WORK_DAYS * NEED_WORK_FOR}</h2>
       <table className={styles.table}>
         <thead>
           <tr>
