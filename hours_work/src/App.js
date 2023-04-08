@@ -3,7 +3,7 @@ import styles from './App.module.css';
 
 function App() {
   const [selectedMonth, setSelectedMonth] = useState(null);
-  const NEED_WORK_FOR = 8
+  const DAY_OFF = [6, 0]
   const [data, setData] = useState({
     april: [
     {
@@ -48,6 +48,13 @@ function App() {
     if (!selectedData) {
       return null;
     }
+    let NEED_WORK_FOR = 0;
+    selectedData.forEach(el => {
+      if (!DAY_OFF.includes(new Date(item.date).getDay())) {
+        NEED_WORK_FOR += 1
+      }
+    });
+
 
     return (
       <div className={styles.tableTotaling}>
@@ -58,6 +65,7 @@ function App() {
             <th>Date</th>
             <th>Total</th>
             <th>Course</th>
+            <th>day off</th>
           </tr>
         </thead>
         <tbody>
@@ -67,6 +75,7 @@ function App() {
                 <td>{item.date}</td>
                 <td>{item.total}</td>
                 <td>{item.course}</td>
+                <td>{DAY_OFF.includes(new Date(item.date).getDay())}</td>
               </tr>
             );
           })}
