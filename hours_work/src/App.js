@@ -50,7 +50,7 @@ function App() {
     }
     let NEED_WORK_FOR = 0;
     selectedData.forEach(el => {
-      if (!DAY_OFF.includes(new Date(item.date).getDay())) {
+      if (!DAY_OFF.includes(new Date(el.date).getDay())) {
         NEED_WORK_FOR += 1
       }
     });
