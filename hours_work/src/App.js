@@ -50,10 +50,12 @@ function App() {
     }
     let NEED_WORK_FOR = 0;
     selectedData.forEach(el => {
+      console.log(new Date(el.date).getDay())
       if (!DAY_OFF.includes(new Date(el.date).getDay())) {
         NEED_WORK_FOR += 1
       }
     });
+    console.log(NEED_WORK_FOR)
 
 
     return (
@@ -75,7 +77,7 @@ function App() {
                 <td>{item.date}</td>
                 <td>{item.total}</td>
                 <td>{item.course}</td>
-                <td>{DAY_OFF.includes(new Date(item.date).getDay())}</td>
+                <td>{`${DAY_OFF.includes(new Date(item.date).getDay())}`}</td>
               </tr>
             );
           })}
