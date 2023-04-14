@@ -5,6 +5,7 @@ function App() {
   const [selectedMonth, setSelectedMonth] = useState(null);
   const NEED_WORK_FOR = 8
   const DAY_OFF = [6, 0]
+  let weeks = {};
   const [data, setData] = useState({
     april: [
     {
@@ -44,6 +45,33 @@ function App() {
     });
   };
 
+  function getWeeksForMonth(month) {
+    const items = data[month];
+    let current_week = 0;
+
+    items.forEach((el, i) => {
+      let keys = Object.keys(weeks).map(Number);
+      if (keys.includes(current_week)) {
+        let day_number = new Date(el.date).getDay();
+        if (day_number === 1) {
+          weeks[current_week + 1] = [el]
+          current_week += 1;
+        } else {
+          weeks[current_week].push(el)
+        }
+      } else {
+        weeks[current_week] = [el]
+      }
+    })
+    let sortedKeys = Object.keys(weeks).map(Number).sort((a, b) => a - b)
+    return sortedKeys.map(key => weeks[key])
+  }
+
+  function getDayOfWeek(date) {
+    const dayOfWeek = date.getDay();
+    return (dayOfWeek === 0) ? 7 : dayOfWeek;
+  }
+
   const renderTable = () => {
     const selectedData = data[selectedMonth];
     if (!selectedData) {
@@ -56,33 +84,41 @@ function App() {
       }
     });
 
-
+    const weeks = getWeeksForMonth(selectedMonth);
     return (
-      <div className={styles.tableTotaling}>
+    <div className={styles.tableTotaling}>
       <h2>Total month hours for {selectedMonth}: {getTotalForMonth(selectedMonth)} / {WORK_DAYS * NEED_WORK_FOR}</h2>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Total</th>
-            <th>Course</th>
-            <th>day off</th>
-          </tr>
-        </thead>
-        <tbody>
-          {selectedData.map((item) => {
-            return (
-              <tr key={item.date}>
-                <td>{item.date}</td>
-                <td>{item.total}</td>
-                <td>{item.course}</td>
-                <td>{`${DAY_OFF.includes(new Date(item.date).getDay())}`}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      </div>
+      {weeks.map((week, index) => {
+        return (
+          <div key={index}>
+            <h3>Week {index + 1}</h3>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Total</th>
+                  <th>Course</th>
+                  <th>Day Off</th>
+                </tr>
+              </thead>
+              <tbody>
+                {week.map((item) => {
+                  const isDayOff = DAY_OFF.includes(new Date(item.date).getDay());
+                  return (
+                    <tr style={isDayOff ? {backgroundColor: '#a9ffbb'} : {}} key={item.date}>
+                      <td>{item.date}</td>
+                      <td>{item.total}</td>
+                      <td>{item.course}</td>
+                      <td>{isDayOff ? 'true' : 'false'}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        );
+      })}
+    </div>
     );
   };
 
