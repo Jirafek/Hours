@@ -4,6 +4,7 @@ import styles from './App.module.css';
 function App() {
   const [selectedMonth, setSelectedMonth] = useState(null);
   const NEED_WORK_FOR = 8
+  const DAYS_IN_WEEK = 5
   const DAY_OFF = [6, 0]
   let weeks = {};
   const [data, setData] = useState({
@@ -67,9 +68,14 @@ function App() {
     return sortedKeys.map(key => weeks[key])
   }
 
-  function getDayOfWeek(date) {
-    const dayOfWeek = date.getDay();
-    return (dayOfWeek === 0) ? 7 : dayOfWeek;
+  function getHoursInWeek(week) {
+    let current_week_hours = 0
+
+    week.forEach(el => {
+      current_week_hours += el.total
+    })
+
+    return `   ${current_week_hours}/${NEED_WORK_FOR * DAYS_IN_WEEK}`
   }
 
   const renderTable = () => {
@@ -91,7 +97,7 @@ function App() {
       {weeks.map((week, index) => {
         return (
           <div key={index}>
-            <h3>Week {index + 1}</h3>
+            <h3>Week {index + 1} <span style={{marginLeft: '15px'}}>{getHoursInWeek(week)}</span></h3>
             <table className={styles.table}>
               <thead>
                 <tr>
