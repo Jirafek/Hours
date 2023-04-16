@@ -32,7 +32,7 @@ function App() {
 
   function getTotalForMonth(month) {
     const items = data[month];
-    const total = items.reduce((acc, item) => acc + item.total, 0);
+    const total = items.reduce((acc, item) => +acc + +item.total, 0);
     return total;
   }
 
