@@ -72,7 +72,7 @@ function App() {
     let current_week_hours = 0
 
     week.forEach(el => {
-      current_week_hours += el.total
+      current_week_hours += +el.total
     })
 
     return `   ${current_week_hours}/${NEED_WORK_FOR * DAYS_IN_WEEK}`
