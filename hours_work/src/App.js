@@ -78,6 +78,16 @@ function App() {
     return `   ${current_week_hours}/${NEED_WORK_FOR * DAYS_IN_WEEK}`
   }
 
+  function getCourseInWeek(week) {
+    let current_week_hours = 0
+
+    week.forEach(el => {
+      current_week_hours += +el.course
+    })
+
+    return current_week_hours
+  }
+
   const renderTable = () => {
     const selectedData = data[selectedMonth];
     if (!selectedData) {
@@ -97,7 +107,7 @@ function App() {
       {weeks.map((week, index) => {
         return (
           <div key={index}>
-            <h3>Week {index + 1} <span style={{marginLeft: '15px'}}>{getHoursInWeek(week)}</span></h3>
+            <h3>Week {index + 1} <span style={{marginLeft: '15px', marginRight: '15px'}}>{getHoursInWeek(week)}</span>{getCourseInWeek(week)}</h3>
             <table className={styles.table}>
               <thead>
                 <tr>
